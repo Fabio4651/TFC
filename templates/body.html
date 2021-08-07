@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Analytics Dashboard - This is an example dashboard created using build-in elements and components.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--
+    =========================================================
+    * ArchitectUI HTML Theme Dashboard - v1.0.0
+    =========================================================
+    * Product Page: https://dashboardpack.com
+    * Copyright 2019 DashboardPack (https://dashboardpack.com)
+    * Licensed under MIT (https://github.com/DashboardPack/architectui-html-theme-free/blob/master/LICENSE)
+    =========================================================
+    * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    --> 
+
+    <!--{% include 'navbar.html' %}-->  
+
+    <style>
+        .chart-container{
+            width: 75%;
+            height: auto;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            border: 5px;
+
+            padding-top: 1%;
+            padding-right: 1%;
+            padding-bottom: 1%;
+            padding-left: 1%;
+        }
+    </style>
+      <script type="text/javascript">
+        function ShowHideDiv() {
+            document.getElementById("saude").value = "";
+            var saudesim = document.getElementById("saudesim");
+            var divsaude = document.getElementById("divsaude");
+            divsaude.style.display = saudesim.checked ? "block" : "none";
+        } 
+      </script>      
+<link href="{{ url_for('static', filename='main.css')}}" rel="stylesheet"></head>
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+
+      {% include 'navbar.html' %}
+      
+        
+        <div class="app-main">
+
+
+
+            {% include 'sidebar.html' %}
+
+
+
+                <div class="app-main__outer">
+                    <div class="app-main__inner">
+                        <!--<div class="col-md-6">
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Line Chart</h5>
+                                    <div style="height: 400px">
+                                        <div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                                            <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                                <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0">
+                                                </div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                                <div style="position:absolute;width:200%;height:200%;left:0; top:0">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <canvas id="line-chart" height="400" class="chartjs-render-monitor" style="display: block; width: 429px; height: 400px;" width="429"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                        <div class="chart-container">
+                            <canvas id="line-chartcanvas"></canvas>
+                        </div><br>
+                        <div class="chart-container">
+                            <canvas id="line-chartcanvas2"></canvas>
+                        </div>
+                    </div>
+                    <div class="app-wrapper-footer">
+                        <div class="app-footer">
+                            <div class="app-footer__inner">
+                                <div class="app-footer-left">
+                                    <ul class="nav">
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0);" class="nav-link">
+                                                Footer Link 1
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0);" class="nav-link">
+                                                Footer Link 2
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="app-footer-right">
+                                    <ul class="nav">
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0);" class="nav-link">
+                                                Footer Link 3
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0);" class="nav-link">
+                                                <div class="badge badge-success mr-1 ml-0">
+                                                    <small>NEW</small>
+                                                </div>
+                                                Footer Link 4
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+                <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+        </div>
+    </div>    
+<script type="text/javascript" src="{{ url_for('static', filename='assets/scripts/main.js')}}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='assets/package/dist/chart.min.js')}}"></script>
+
+<!--<script src="{{ url_for('static', filename='assets/package/dist/line.js')}}"></script>-->
+
+<script>
+$(document).ready(function(){
+    var ctx = $("#line-chartcanvas"); 
+
+    var data = {
+        labels: [{% for item in labels %}
+                "{{item.date}}",
+                {% endfor %}],
+        datasets: [
+            {
+                label: "Peso (kg)",
+                data: [{% for item in values %}
+                {{item.weight}},
+                {% endfor %}],
+                backgroundColor: "blue",
+                borderColor: "lightblue",
+                fill: false,
+                lineTension: 0.3,
+                pointRadius: 5
+            }
+        ]
+    };
+
+    var chart = new Chart(ctx, {
+        type: "line",
+        data: data,
+        options: {}
+    });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+    var ctx = $("#line-chartcanvas2"); 
+
+    var data = {
+        labels: [{% for item in labels %}
+                "{{item.date}}",
+                {% endfor %}],
+        datasets: [
+            {
+                label: "BMI",
+                data: [{% for item in bmi %}
+                {{item.bmi}},
+                {% endfor %}],
+                backgroundColor: "red",
+                borderColor: "pink",
+                fill: false,
+                lineTension: 0.3,
+                pointRadius: 5
+            }
+        ]
+    };
+
+    var chart = new Chart(ctx, {
+        type: "line",
+        data: data,
+        options: {}
+    });
+});
+</script>
+
+</body>
+</html>

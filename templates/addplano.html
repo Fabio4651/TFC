@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Analytics Dashboard - This is an example dashboard created using build-in elements and components.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--
+    =========================================================
+    * ArchitectUI HTML Theme Dashboard - v1.0.0
+    =========================================================
+    * Product Page: https://dashboardpack.com
+    * Copyright 2019 DashboardPack (https://dashboardpack.com)
+    * Licensed under MIT (https://github.com/DashboardPack/architectui-html-theme-free/blob/master/LICENSE)
+    =========================================================
+    * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    --> 
+
+    <!--{% include 'navbar.html' %}-->   
+<link href="{{ url_for('static', filename='main2.css')}}" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='assets/scripts/main2.js')}}"></script>
+</head>
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+
+      {% include 'navbar.html' %}
+      
+        
+        <div class="app-main">
+
+
+
+            {% include 'sidebar.html' %}
+
+
+
+                <div class="app-main__outer">
+                    <div class="app-main__inner">
+                            <!--<div class="col-md-9">-->
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body"><h5 class="card-title">Adicionar Plano de Treino</h5>
+                                        <form method="POST" id="plan" action="/inserirplano" enctype="multipart/form-data">
+                                            <div class="position-relative form-group col-md-6">
+                                                <label for="nome" class="">Nome do Plano</label>
+                                                <input name="nome" id="nome" type="text" class="form-control">
+                                            </div>
+                                            <div class="position-relative form-group col-md-6">
+                                                <label for="exampleText" class="">Descrição</label>
+                                                <textarea name="descricao" id="exampleText" class="form-control"></textarea>
+                                            </div>
+                                            <h5 class="card-title">Lista de Exercícios</h5>
+                                            <div id="plano">
+                                                <h5 class="card-title">1º Exercício</h5>
+                                                <div class="position-relative form-group col-md-6"><label for="exampleSelect" class="">Exercício</label><select name="exercicio" id="exampleSelect" class="form-control">
+                                                            <option value=""></option>
+                                                            {% for row in data %}
+                                                                <option value="{{row.id}}">{{row.nome}}</option>
+                                                            {% endfor %}
+                                                        </select></div>        
+                                                    <div class="position-relative col-md-3 custom-control-inline">
+                                                        <label for="nome" class="">Duração do Exercício</label>
+                                                        <input name="rep" id="rep" type="number" class="form-control">
+                                                    </div> 
+                                                   <!-- <div class="position-relative form-group col-md-6">
+                                                        <input class="form-control" type="checkbox" checked data-toggle="toggle" name="repet" value="repeticoes" data-on="Repetições" data-off="Segundos" data-onstyle="primary" data-offstyle="secondary"> 
+                                                    </div> -->
+                                                <!--<div class="main-card mb-3 card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Custom Content</h5>
+                                                        <input type="checkbox" checked data-toggle="toggle" data-on="Repetições" data-off="Segundos" data-onstyle="primary" data-offstyle="secondary">
+                                                    </div>
+                                                </div>-->
+                                                <div class="position-relative form-group col-md-6 custom-control-inline">
+                                                    <div>
+                                                        <div class="custom-radio custom-control">
+                                                            <div class="col-sm-5">
+                                                                <input type="radio" id="exampleCustomRadio" name="repet" value="repeticoes" class="custom-control-input">
+                                                                <label class="custom-control-label" for="exampleCustomRadio">Repetições</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="custom-radio custom-control form-group">
+                                                            <div class="col-sm-12">
+                                                                <input type="radio" id="exampleCustomRadio2" name="repet" value="segundos" class="custom-control-input">
+                                                                <label class="custom-control-label" for="exampleCustomRadio2">Tempo em Segundos</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="position-relative form-group col-md-12">
+                                                <button type="button" style="vertical-align: baseline;" id="btn" class="mt-1 btn btn-secondary">Adicionar exercício</button>
+                                                <button type="button" id="rmv" class="mb-1 border-0 btn-transition btn btn-outline-danger">Remover exercício</button>
+                                            </div>
+                                             <br>
+                                            <button type="submit" class="mt-1 btn btn-primary">Criar Plano</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                    </div>
+                    <div class="app-wrapper-footer">
+                        <div class="app-footer">
+                            <div class="app-footer__inner">
+                                <div class="app-footer-left">
+                                    <ul class="nav">
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0);" class="nav-link">
+                                                Footer Link 1
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0);" class="nav-link">
+                                                Footer Link 2
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="app-footer-right">
+                                    <ul class="nav">
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0);" class="nav-link">
+                                                Footer Link 3
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0);" class="nav-link">
+                                                <div class="badge badge-success mr-1 ml-0">
+                                                    <small>NEW</small>
+                                                </div>
+                                                Footer Link 4
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+                <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+        </div>
+    </div>    
+<script type="text/javascript" src="{{ url_for('static', filename='assets/scripts/main.js')}}"></script></body>
+</html>
+
+<script>
+let count = 2;
+let radiocount = 0;
+let count2 = "cnt"+count;
+
+$(function(){
+    $('#btn').click(function() {
+        var divnova = '<h5 id="'+count2+'" class="del'+count2+ ' card-title">'+count+'º Exercício</h5>'+
+                                '<div class="del'+count2+ ' position-relative form-group col-md-6"><label for="exampleSelect" class="">Exercício</label><select name="exercicio'+radiocount+'" id="exampleSelect" class="form-control">'
+                                            +'<option value=""></option>'
+                                                +'{% for row in data %}'
+                                                    +'<option value="{{row.id}}">{{row.nome}}</option>'
+                                                +'{% endfor %}'
+                                       +'</select></div>'
+                                +'<div class="del'+count2+ ' position-relative col-md-3 custom-control-inline">'
+                                    +'<label for="nome" class="">Duração do Exercício</label>'
+                                    +'<input name="rep'+radiocount+'" id="rep" type="number" class="form-control">'
+                                +'</div>'
+                                +'<!--<div class="del'+count2+ ' position-relative form-group col-md-6"><input class="form-control" type="checkbox" checked data-toggle="toggle" name="repet" value="repeticoes" data-on="Repetições" data-off="Segundos" data-onstyle="primary" data-offstyle="secondary"></div>-->'
+                                +'<div class="del'+count2+ ' position-relative form-group col-md-6 custom-control-inline">'
+                                    +'<div>'
+                                        +'<div class="custom-radio custom-control">'
+                                            +'<div class="col-sm-5">'
+                                               +'<input type="radio" id="repeticoes'+radiocount+'" name="repet'+radiocount+'" value="repeticoes" class="custom-control-input">'
+                                                +'<label class="custom-control-label" for="repeticoes'+radiocount+'">Repetições</label>'
+                                            +'</div>'
+                                        +'</div>'
+                                        +'<div class="custom-radio custom-control form-group">'
+                                            +'<div class="col-sm-12">'
+                                                +'<input type="radio" id="segundos'+radiocount+'" name="repet'+radiocount+'" value="segundos" class="custom-control-input">'
+                                                +'<label class="custom-control-label" for="segundos'+radiocount+'">Tempo em Segundos</label>'
+                                            +'</div>'
+                                            +'<input type="hidden" id="rcount" name="count" value="'+radiocount+'">'
+                                       +'</div>'
+                                    +'</div>'
+                                +'</div>';
+
+
+                                
+
+        /*divnova.rel = "stylesheet";
+        divnova.href = "{{ url_for('static', filename='main2.css')}}";*/
+
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = '{{ url_for("static", filename="assets/scripts/main2.js")}}';
+        $("#plano").append(script);
+
+        $('#plano').append(divnova); 
+
+                                
+        count++;
+        radiocount++;
+        count2 = "cnt"+count;
+        console.log(radiocount);
+        //document.getElementById(count2).innerHTML = count + "º Exercício";
+        
+
+        $('#plan').on('submit', function (e) {
+        //prevent the default submithandling
+        parseInt(document.getElementById("rcount").value = radiocount);
+        e.preventDefault();
+        alert($(this).serialize())
+        //send the data of 'this' (the matched form) to yourURL
+        $.post('/inserirplano', $(this).serialize());
+});
+    });
+
+    /*$('#btn').click(function() {
+        $.get("{{ url_for('static', filename='divPlano.html')}}", function (data) {
+                    $("#plano").append(data);
+                }); 
+    });*/
+});
+
+$(document).ready(function(){
+  $("#rmv").click(function(){
+    $("h5, div").remove(".del"+count2+"");
+    count2 = "cnt"+count;
+    count--;
+    if(count<2){
+        count=2;
+    }
+    radiocount--;
+    if(radiocount<0){
+        radiocount=0;
+    }
+    //console.log(count);
+    //console.log(radiocount);
+    count2 = "cnt"+count;
+    //console.log("bruh"+count2);
+    console.log("del"+count2);
+  });
+});
+
+</script>

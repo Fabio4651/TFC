@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+
+<head {{ modals() }}>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Analytics Dashboard - This is an example dashboard created using build-in elements and components.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--
+    =========================================================
+    * ArchitectUI HTML Theme Dashboard - v1.0.0
+    =========================================================
+    * Product Page: https://dashboardpack.com
+    * Copyright 2019 DashboardPack (https://dashboardpack.com)
+    * Licensed under MIT (https://github.com/DashboardPack/architectui-html-theme-free/blob/master/LICENSE)
+    =========================================================
+    * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    --> 
+
+    <!--{% include 'navbar.html' %}-->
+    
+    <script>
+        function edit(id_user) {
+            redirectPost('/updateusers?id_user='+id_user, { id: id_user })
+            .then(function(response) {
+                console.log(response);
+            })
+        }
+    </script> 
+
+    <script>
+    function apagar(id) {
+      var txt;
+      var r = confirm("Tem a certeza que pretende apagar este utilizador?");
+      if (r == true) {
+        send(id)
+      } else {
+       
+      }
+      document.getElementById("demo").innerHTML = txt;
+    }
+
+    function send(id_user) {
+            redirectPost('/deleteuser?id_user='+id_user, { id: id_user })
+            .then(function(response) {
+                console.log(response);
+            })
+        }
+
+        function redirectPost(url, id_user) {
+            var form = document.createElement('form');
+            document.body.appendChild(form);
+            form.method = 'POST';
+            form.action = url;
+            var input = document.createElement('input');
+            input.value = id_user
+            form.appendChild(input);
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        }
+
+        function edit(id_user) {
+            redirectPost('/updateusers?id_user='+id_user, { id: id_user })
+            .then(function(response) {
+                console.log(response);
+            })
+        }
+
+        function detalhesUser(id_user) {
+            redirectPost('/detalhesUser?id_user='+id_user, { id: id_user })
+            .then(function(response) {
+                console.log(response);
+            })
+        }
+
+        function redirectPost(url, id_user) {
+            var form = document.createElement('form');
+            document.body.appendChild(form);
+            form.method = 'POST';
+            form.action = url;
+            var input = document.createElement('input');
+            input.value = id_user;
+            form.appendChild(input);
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        }
+
+        function modal(id_user) {
+            redirectPost('/verusers?id_user='+id_user, { id: id_user })
+            .then(function(response) {
+                console.log(response);
+            })
+        }
+
+   </script>
+
+
+<link href="{{ url_for('static', filename='main.css')}}" rel="stylesheet"></head>
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+
+      {% include 'navbar.html' %}
+      
+        
+        <div class="app-main">
+
+
+
+            {% include 'sidebar.html' %}
+
+
+
+                <div class="app-main__outer">
+                    <div class="app-main__inner">
+
+                                        <div class="col-lg-9">
+                                            <div class="main-card mb-3 card">
+                                                <div class="card-body"><h5 class="card-title">Utilizadores</h5>
+                                                    <div class="table-responsive table-hover table-borderless">
+                                                        <table class="mb-0 table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Nome</th>
+                                                                <th>Imagem</th>
+                                                                <th>Ver Mais</th>
+                                                                <th>Editar</th>
+                                                                <th>Apagar</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for row in data %}
+                                                                <tr>
+                                                                <td>{{row.id}}</td><!--data-toggle="modal"-->
+                                                                <td>{{row.nome +" "+ row.apelido}}</td>
+                                                                <td><img class="rounded-circle" src="{{row.imgpath}}" style="max-width:50px;" alt="Perfil"></td>
+                                                                <td><button type="button" onclick='detalhesUser({{row.id}})' data-target=".bd-example-modal-lg" class="btn btn-info img-circle"><i class="fas fa-search"></i></button</td>
+                                                                <td><button type="button" onclick='edit({{row.id}})' class="btn btn-warning img-circle"><i class="fas fa-pen"></i></button</td>
+                                                                <td><button type="button" onclick='apagar({{row.id}})' class="btn btn-danger img-circle"><i class="fas fa-trash"></i></button></td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                
+                    </div>
+                    <div class="">
+                        <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
+                            <i class="fa fa-cog fa-w-16 fa-spin fa-2x"></i>
+                        </button>
+                    </div>    
+                    <div class="app-wrapper-footer">
+                        <div class="app-footer">
+                            <div class="app-footer__inner">
+                                <div class="app-footer-left">
+                                    <ul class="nav">
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0);" class="nav-link">
+                                                Footer Link 1
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0);" class="nav-link">
+                                                Footer Link 2
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="app-footer-right">
+                                    <ul class="nav">
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0);" class="nav-link">
+                                                Footer Link 3
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="javascript:void(0);" class="nav-link">
+                                                <div class="badge badge-success mr-1 ml-0">
+                                                    <small>NEW</small>
+                                                </div>
+                                                Footer Link 4
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+                <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+        </div>
+    </div>    
+<script type="text/javascript" src="{{ url_for('static', filename='assets/scripts/main.js')}}"></script></body>
+</html>
+
+
+<div class="modal fade bd-example-modal-lg" id="modal-teste" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Ficha do Utilizador</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               {{ modal_messages() }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Adicionar Utilizador</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type='text/javascript'>
+    function modal(id_user) {
+
+
+            redirectPost('/modal_users?id_user='+id_user, { id: id_user })
+                .then(function(response) {
+                    console.log(response);
+            })
+    }
+
+</script>

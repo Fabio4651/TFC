@@ -1,0 +1,115 @@
+<script>
+
+        function detalhes(id_user, cargo) {
+            console.log(cargo)
+            if(cargo=="Treinador"){
+                redirectPost('/detalhesTrainer?id_user='+id_user, { id: id_user })
+                .then(function(response) {
+                    console.log(response);
+                })
+            }else if(cargo=="Administrador" || cargo=="Utilizador"){
+                redirectPost('/detalhesUser?id_user='+id_user, { id: id_user })
+                .then(function(response) {
+                    console.log(response);
+                })
+            }
+            
+        }
+
+        function redirectPost(url, id_user) {
+            var form = document.createElement('form');
+            document.body.appendChild(form);
+            form.method = 'POST';
+            form.action = url;
+            var input = document.createElement('input');
+            input.value = id_user;
+            form.appendChild(input);
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        }
+
+        function edit(id_user) {
+            redirectPost('/updateusers?id_user='+id_user, { id: id_user })
+            .then(function(response) {
+                console.log(response);
+            })
+        }
+
+        function editTrainer(id_user) {
+            redirectPost('/updatetrainer?id_user='+id_user, { id: id_user })
+            .then(function(response) {
+                console.log(response);
+            })
+        }
+        
+</script>        
+        <div class="app-header header-shadow bg-sunny-morning header-text-dark">
+            <div class="app-header__logo">
+                <div class="logo-src"></div>
+                <div class="header__pane ml-auto">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="app-header__menu">
+                <span>
+                    <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        </span>
+                    </button>
+                </span>
+            </div>    <div class="app-header__content">
+                <div class="app-header-left">    </div>
+                <div class="app-header-right">
+                    <div class="header-btn-lg pr-0">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left  ml-3 header-user-info">
+                                    <div class="widget-heading">
+                                        {{session.nome}} {{session.apelido}}
+                                    </div>
+                                    <div class="widget-subheading">
+                                        {{session.cargo}}
+                                    </div>
+                                </div>
+                                <div class="widget-content-left">
+                                    <div class="btn-group">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                            <img width="42" class="rounded-circle" src="{{session.img}}" alt="">
+                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                        </a>
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                            <button type="button" tabindex="0" onclick="detalhes('{{session.id}}','{{session.cargo}}')" class="dropdown-item">User Account</button>
+                                            <a type="button" tabindex="0" href="/uploadcsv" class="dropdown-item">Upload de CSV</a>
+                                            <a type="button" {% if session.cargo=="Administrador" %} onclick='edit({{session.id}})'{% endif %} {% if session.cargo=="Treinador" %} onclick='editTrainer({{session.id}})'{% endif %} tabindex="0" class="dropdown-item">Settings</a>
+                                            <a type="button" tabindex="0" href="/consulta" class="dropdown-item">Consuta de dados de treino</a>
+                                            <div tabindex="-1" class="dropdown-divider"></div>
+                                            <a type="button" tabindex="0" href="/logout" class="dropdown-item">Logout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>        </div>
+            </div>
+        </div>  
+
+
+
